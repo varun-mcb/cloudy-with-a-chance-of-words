@@ -1,32 +1,49 @@
-import { AppBar, makeStyles } from '@material-ui/core';
+import { FC } from 'react';
+import {
+  makeStyles,
+  CssBaseline,
+  MuiThemeProvider,
+  AppBar,
+  Typography,
+} from '@material-ui/core';
 
+import { APP_BAR_HEIGHT, theme } from './theme';
 import Cloudy from './Cloudy';
+import HSpacer from './widgets/HSpacer';
 
-const useStyles = makeStyles((theme) => ({
+const useStyles = makeStyles({
   root: {
     height: '100vh',
   },
   appBar: {
-    height: 40,
+    flexDirection: 'row',
+    alignItems: 'center',
+    paddingLeft: 20,
   },
   main: {
-    height: 'calc(100vh - 40px)',
+    height: `calc(100vh - ${APP_BAR_HEIGHT}px)`,
   },
-}));
+});
 
-function App() {
+const App: FC = () => {
   const classes = useStyles();
 
   return (
-    <section className={classes.root}>
-      <AppBar className={classes.appBar}>
-        Cloudy - Make Clouds Rain Meaning
-      </AppBar>
-      <main className={classes.main}>
-        <Cloudy />
-      </main>
-    </section>
+    <MuiThemeProvider theme={theme}>
+      <CssBaseline>
+        <section className={classes.root}>
+          <AppBar position="static" className={classes.appBar}>
+            <Typography>Cloudy</Typography>
+            <HSpacer width={10} />
+            <Typography variant="caption">Make Clouds Rain Meaning</Typography>
+          </AppBar>
+          <main className={classes.main}>
+            <Cloudy />
+          </main>
+        </section>
+      </CssBaseline>
+    </MuiThemeProvider>
   );
-}
+};
 
 export default App;
